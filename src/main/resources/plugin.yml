@@ -1,0 +1,10 @@
+name: SyrxOntime
+version: 1.0
+description: Ontime system for syrxcraft network servers.
+softdepend: [PlaceholderAPI]
+
+main: br.com.brunoxkk0.syrxontime.SyrxOntime
+
+commands:
+  ontime:
+    description: main cmd

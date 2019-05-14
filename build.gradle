@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+}
+
+group 'br.com.brunoxkk0'
+version '1.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'spigotmc-repo'
+        url = 'https://hub.spigotmc.org/nexus/content/groups/public/'
+    }
+}
+
+dependencies {
+    compile fileTree(dir: "lib", include: "*.jar")
+    compile 'org.bukkit:bukkit:1.8.8-R0.1-SNAPSHOT'
+}
