@@ -1,2 +1,2 @@
 # SyrxOntime
-Simple ontime system for bukkit minecraft servers.
+Plugin em criação, não recomendo usar.
