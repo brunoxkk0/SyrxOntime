@@ -1,46 +1,38 @@
 package br.com.brunoxkk0.syrxontime.utils;
 
-import br.com.brunoxkk0.syrxontime.data.store.Cache;
-import br.com.brunoxkk0.syrxontime.events.DayChangeEvent;
-import org.bukkit.Bukkit;
+import br.com.brunoxkk0.syrxontime.SyrxOntime;
+import br.com.brunoxkk0.syrxontime.manager.ConfigManager;
 
 import java.util.Calendar;
 import java.util.TimeZone;
 
 public class Clock {
 
-    private static Calendar calendar;
-    public static Integer currentDay;
+    public static Integer today;
 
-    public Clock(){
-        calendar = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo"));
-        currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+    public static void setup(){
+        today = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo")).get(Calendar.DAY_OF_MONTH);
     }
 
     public static void update(){
 
-        if(calendar == null) {
-            new Clock();
+        int day = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo")).get(Calendar.DAY_OF_MONTH);
+
+        if(today < day){
+            today = day;
+            dayChanged();
         }
 
-        //Atualiza o date para ver se mudou o dia;
-       calendar = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo"));
+    }
 
-        if(currentDay < calendar.get(Calendar.DAY_OF_MONTH)){
-            Bukkit.getPluginManager().callEvent(new DayChangeEvent());
-            currentDay = calendar.get(Calendar.DAY_OF_MONTH);
-        }
+    public static void dayChanged(){
+        SyrxOntime.logger().info("Um outro dia começou...");
+        ConfigManager.wipeCache();
 
-        Cache.todayDAY = calendar.get(Calendar.DAY_OF_MONTH);
     }
 
     public static int getCurrentDay(){
-        if(calendar != null) {
-            return calendar.get(Calendar.DAY_OF_MONTH);
-        }
-
-        update();
-        return getCurrentDay();
+        return today;
     }
 
 

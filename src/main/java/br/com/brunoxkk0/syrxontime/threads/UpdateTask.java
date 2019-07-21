@@ -2,12 +2,15 @@ package br.com.brunoxkk0.syrxontime.threads;
 
 
 import br.com.brunoxkk0.syrxontime.SyrxOntime;
-import br.com.brunoxkk0.syrxontime.data.TimeObj;
+import br.com.brunoxkk0.syrxontime.data.PlayerTime;
 import br.com.brunoxkk0.syrxontime.data.store.Cache;
 import br.com.brunoxkk0.syrxontime.manager.ConfigManager;
 import br.com.brunoxkk0.syrxontime.utils.Clock;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.ArrayList;
 
 public class UpdateTask extends Thread {
 
@@ -50,41 +53,20 @@ public class UpdateTask extends Thread {
 
     @Override
     public void run() {
-
         while(repeat) {
-            if (!sleepFor(1000)) return; // Dormir por 1 segundo
 
-            if (SyrxOntime.debug) SyrxOntime.debug("UpdateTask rodando!");
+            if (!sleepFor(1000)) return;
 
             if (tickCacheForSave()) {
                 ConfigManager.saveCache();
             }
 
-            /*
-
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                TimeObj timeObj = Cache.cache.getOrDefault(player, new TimeObj(player));
-                timeObj.update();
-                Cache.cache.put(player, timeObj);
+            for(Player player : Bukkit.getServer().getOnlinePlayers()){
+                Cache.update(player);
             }
 
-            */
-
-            for(TimeObj timeObj : Cache.cache.values()){
-                update(timeObj);
-            }
-
-            //Update no tempo;
             Clock.update();
-
         }
     }
 
-    public void update(TimeObj timeObj){
-
-        TimeObj tobj = timeObj;
-        tobj.update();
-
-        Cache.cache.replace(tobj.getPlayer(), tobj);
-    }
 }

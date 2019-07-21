@@ -39,26 +39,25 @@ public class PlaceholderAPI extends PlaceholderExpansion {
 
         if(s.startsWith("formated_1_")){
             s = s.split("formated_1_")[1];
-            OfflinePlayer p = Bukkit.getOfflinePlayer(s);
+
+            Player p = Bukkit.getPlayer(s);
 
             if(p != null){
-                return "" + TimeAPI.formatSec(Provider.getPlayerTimeS((Player) p).intValue());
-            }else{
-                return "";
+                return "" + TimeAPI.formatSec(Provider.getPlayerTimeS(p).intValue());
             }
+
         }
 
         if(s.startsWith("formated_2_")){
             s = s.split("formated_2_")[1];
-            OfflinePlayer p = Bukkit.getOfflinePlayer(s);
+
+            Player p = Bukkit.getPlayer(s);
 
             if(p != null){
-                return "" + TimeAPI.formatSec(Provider.getPlayerTimeS((Player) p).intValue());
-            }else{
-                return "";
+                return "" + TimeAPI.formatSec(Provider.getPlayerTimeS(p).intValue());
             }
-        }
 
+        }
 
         switch (s){
             case "today":{
@@ -100,10 +99,8 @@ public class PlaceholderAPI extends PlaceholderExpansion {
             case "joined":{
                 return Provider.getPlayerJoinedTime(player);
             }
-
-            default:{
-                return "";
-            }
         }
+
+        return "";
     }
 }

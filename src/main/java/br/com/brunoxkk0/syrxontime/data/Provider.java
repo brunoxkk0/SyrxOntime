@@ -9,20 +9,17 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class Provider {
 
-    public static TimeObj getPlayer(Player p){
-        if(Cache.cache.containsKey(p)){
-            return Cache.cache.get(p);
-        }
-
-        return null;
+    public static PlayerTime getPlayer(Player player){
+        return Cache.get(player);
     }
 
     public static Long getPlayerToday(Player p){
-        TimeObj timeObj = getPlayer(p);
-        return (timeObj != null) ? timeObj.getTotalTimeToday() / 1000 : 0;
+        PlayerTime playerTime = getPlayer(p);
+        return (playerTime != null) ? playerTime.getTotalTimeToday() / 1000 : 0;
     }
 
     public static Double getPlayerTimeH(Player p) {
@@ -55,11 +52,9 @@ public class Provider {
 
     public static String getPlayerJoinedTime(Player p) {
 
-
         Date date = new Date(p.getFirstPlayed());
         DateFormat formatter = new SimpleDateFormat("dd/MM/YYYY HH:mm:ss");
         String dateFormatted = formatter.format(date);
-
 
         return dateFormatted;
     }
@@ -71,5 +66,35 @@ public class Provider {
         String dateFormatted = formatter.format(date);
 
         return dateFormatted;
+    }
+
+    public static int convert(TimeUnit unit, long time){
+        switch (unit){
+            case MINUTES:{
+                return (int) Math.abs((time/1000)/60);
+            }
+
+            case SECONDS:{
+                return (int) Math.abs((time/1000));
+            }
+
+            case HOURS:{
+                return (int) Math.abs((time/1000)/60/60);
+            }
+
+            default: {
+                return 0;
+            }
+        }
+    }
+
+    public static TimeUnit parse(long time){
+        if(time < 60000){
+            return TimeUnit.SECONDS;
+        }else if(time < 3600000){
+            return TimeUnit.MINUTES;
+        }else{
+            return TimeUnit.HOURS;
+        }
     }
 }
