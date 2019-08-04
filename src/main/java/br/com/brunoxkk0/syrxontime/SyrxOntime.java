@@ -5,6 +5,7 @@ import br.com.brunoxkk0.syrxontime.data.store.Cache;
 import br.com.brunoxkk0.syrxontime.manager.ConfigManager;
 import br.com.brunoxkk0.syrxontime.manager.EventListener;
 import br.com.brunoxkk0.syrxontime.rewards.RewardManager;
+import br.com.brunoxkk0.syrxontime.threads.TopTask;
 import br.com.brunoxkk0.syrxontime.threads.UpdateTask;
 import br.com.brunoxkk0.syrxontime.utils.Clock;
 import org.bukkit.Bukkit;
@@ -31,8 +32,9 @@ public class SyrxOntime extends JavaPlugin {
         Clock.setup();
         ConfigManager.setup();
         EventListener.setup();
-        RewardManager.setup();
+        //RewardManager.setup();
 
+        TopTask.initialize();
         UpdateTask.initialize();
 
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){

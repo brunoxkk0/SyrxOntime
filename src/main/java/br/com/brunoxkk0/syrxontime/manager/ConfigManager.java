@@ -59,7 +59,7 @@ public class ConfigManager {
 
     public static void saveCache(){
 
-        SyrxOntime.logger().info("Salvando dados...");
+        if(SyrxOntime.debug) SyrxOntime.logger().info("Salvando dados...");
 
         cache.setValue("day", Clock.getCurrentDay());
 
@@ -78,7 +78,7 @@ public class ConfigManager {
 
         cache.save();
 
-        SyrxOntime.logger().info("Sucesso.");
+        if(SyrxOntime.debug) SyrxOntime.logger().info("Sucesso.");
     }
 
     public static void wipeCache(){

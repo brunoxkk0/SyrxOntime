@@ -39,6 +39,10 @@ public class RewardManager {
 
     public static boolean process(OfflinePlayer player, long time){
 
+        if(true){
+            return false;
+        }
+
         System.out.println("process");
         System.out.println(Provider.parse(time) + ":" + Provider.convert(Provider.parse(time), time));
 

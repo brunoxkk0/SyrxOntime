@@ -1,11 +1,15 @@
 package br.com.brunoxkk0.syrxontime.addons;
 
 import br.com.brunoxkk0.syrxontime.data.Provider;
+import br.com.brunoxkk0.syrxontime.threads.TopTask;
 import br.com.brunoxkk0.syrxontime.utils.TimeAPI;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
+import java.util.UUID;
 
 public class PlaceholderAPI extends PlaceholderExpansion {
 
@@ -36,6 +40,29 @@ public class PlaceholderAPI extends PlaceholderExpansion {
 
     @Override
     public String onPlaceholderRequest(Player player, String s) {
+
+        if(s.startsWith("top_")){
+            s = s.split("top_")[1];
+
+            try{
+                OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer((new ArrayList<UUID>(TopTask.getMap().keySet())).get(Integer.parseInt(s)));
+                return offlinePlayer.getName();
+            }catch (Exception e){
+                return "";
+            }
+
+        }
+
+        if(s.startsWith("toptime_")){
+            s = s.split("toptime_")[1];
+
+            try{
+                return TimeAPI.formatSec((int) (new ArrayList<Long>(TopTask.getMap().values()).get(Integer.parseInt(s))/20));
+
+            }catch (Exception e){
+                return "";
+            }
+        }
 
         if(s.startsWith("formated_1_")){
             s = s.split("formated_1_")[1];
