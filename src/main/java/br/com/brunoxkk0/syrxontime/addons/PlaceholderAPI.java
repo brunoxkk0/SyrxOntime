@@ -57,8 +57,7 @@ public class PlaceholderAPI extends PlaceholderExpansion {
             s = s.split("toptime_")[1];
 
             try{
-                return TimeAPI.formatSec((int) (new ArrayList<Long>(TopTask.getMap().values()).get(Integer.parseInt(s))/20));
-
+                return TimeAPI.formatSec(new ArrayList<Long>(TopTask.getMap().values()).get(Integer.parseInt(s)).intValue());
             }catch (Exception e){
                 return "";
             }

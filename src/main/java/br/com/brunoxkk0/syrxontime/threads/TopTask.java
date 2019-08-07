@@ -75,7 +75,7 @@ public class TopTask extends Thread {
                     Object obj = parser.parse(new FileReader(fl));
                     JSONObject jsonObject = (JSONObject) obj;
 
-                    map.put(UUID.fromString(fl.getName().replace(".json","")),(Long) jsonObject.get("stat.playOneMinute"));
+                    map.put(UUID.fromString(fl.getName().replace(".json","")),((Long) jsonObject.get("stat.playOneMinute"))/(20*60));
                 }
             }
 
