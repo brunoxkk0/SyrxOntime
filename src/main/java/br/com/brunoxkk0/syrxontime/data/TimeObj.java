@@ -1,7 +1,6 @@
 package br.com.brunoxkk0.syrxontime.data;
 
 import br.com.brunoxkk0.syrxontime.SyrxOntime;
-import br.com.brunoxkk0.syrxontime.manager.AfkManager;
 import br.com.brunoxkk0.syrxontime.utils.Clock;
 import org.bukkit.OfflinePlayer;
 
@@ -16,14 +15,14 @@ public class TimeObj {
 
     public TimeObj(OfflinePlayer p){
         player = p;
-        today = Clock.currentDay;
+        today = Clock.getCurrentDay();
         lastUpdate = System.currentTimeMillis();
         totalTimeToday = 0;
     }
 
     public TimeObj(OfflinePlayer p, Long totalTimeToday){
         player = p;
-        today = Clock.currentDay;
+        today = Clock.getCurrentDay();
         lastUpdate = System.currentTimeMillis();
         this.totalTimeToday = totalTimeToday;
     }
@@ -59,8 +58,8 @@ public class TimeObj {
 
         totalTimeToday += (currentTime - lastUpdate);
 
-        if(today < Clock.currentDay){
-            today = Clock.currentDay;
+        if(today < Clock.getCurrentDay()){
+            today = Clock.getCurrentDay();
             totalTimeToday = 0;
         }
 

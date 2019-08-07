@@ -4,10 +4,10 @@ import java.util.concurrent.TimeUnit;
 
 public class Reward implements IReward {
 
-    IReward reward;
-    int Reward_UUID;
+    private IReward reward;
+    private int Reward_UUID;
 
-    public Reward(IReward reward, int Reward_UUID){
+    Reward(IReward reward, int Reward_UUID){
         this.reward = reward;
         this.Reward_UUID = Reward_UUID;
     }
@@ -37,7 +37,7 @@ public class Reward implements IReward {
         return reward.xp();
     }
 
-    public int Reward_UUID() {
+    int Reward_UUID() {
         return Reward_UUID;
     }
 }

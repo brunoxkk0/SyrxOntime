@@ -8,7 +8,7 @@ import java.util.TimeZone;
 
 public class Clock {
 
-    public static Integer today;
+    private static Integer today;
 
     public static void setup(){
         today = Calendar.getInstance(TimeZone.getTimeZone("America/Sao_Paulo")).get(Calendar.DAY_OF_MONTH);
@@ -25,7 +25,7 @@ public class Clock {
 
     }
 
-    public static void dayChanged(){
+    private static void dayChanged(){
         SyrxOntime.logger().info("Um outro dia começou...");
         ConfigManager.wipeCache();
 

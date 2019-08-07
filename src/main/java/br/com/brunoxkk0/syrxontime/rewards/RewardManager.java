@@ -12,15 +12,15 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class RewardManager {
-    static int id = 0;
+    private static int id = 0;
     private static ArrayList<Reward> rewards = new ArrayList<>();
     public volatile static HashMap<OfflinePlayer, Integer> rewards_cache = new HashMap<>();
 
-    public static void register(IReward reward){
+    private static void register(IReward reward){
         rewards.add(new Reward(reward,lastId()));
     }
 
-    static int lastId(){
+    private static int lastId(){
         return id++;
     }
 

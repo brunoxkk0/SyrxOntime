@@ -7,10 +7,10 @@ public class TimeAPI {
 
     public static String formatSec(int secondsLeft){
 
-        Integer dias = 0;
-        Integer horas = 0;
-        Integer minutos = 0;
-        Integer segundos = 0;
+        int dias = 0;
+        int horas = 0;
+        int minutos = 0;
+        int segundos = 0;
 
 
         if (secondsLeft >= 86400){
@@ -46,10 +46,10 @@ public class TimeAPI {
 
     public static String formatSec2(int secondsLeft){
 
-        Integer dias = 0;
-        Integer horas = 0;
-        Integer minutos = 0;
-        Integer segundos = 0;
+        int dias = 0;
+        int horas = 0;
+        int minutos = 0;
+        int segundos = 0;
 
 
         if (secondsLeft >= 86400){
@@ -87,7 +87,7 @@ public class TimeAPI {
 
         float percent = (float) current / max;
 
-        int progressBars = (int) ((int) totalBars * percent);
+        int progressBars = (int) (totalBars * percent);
 
         int leftOver = (totalBars - progressBars);
 

@@ -2,20 +2,15 @@ package br.com.brunoxkk0.syrxontime.threads;
 
 
 import br.com.brunoxkk0.syrxontime.SyrxOntime;
-import br.com.brunoxkk0.syrxontime.data.PlayerTime;
 import br.com.brunoxkk0.syrxontime.data.store.Cache;
 import br.com.brunoxkk0.syrxontime.manager.ConfigManager;
 import br.com.brunoxkk0.syrxontime.utils.Clock;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitRunnable;
-
-import java.util.ArrayList;
 
 public class UpdateTask extends Thread {
 
-    public static UpdateTask updateTask;
-    public static Boolean repeat = true;
+    private static UpdateTask updateTask;
 
     public static void shutdown(){
         if (updateTask != null) updateTask.interrupt();
@@ -29,9 +24,9 @@ public class UpdateTask extends Thread {
         }
     }
 
-    public boolean sleepFor(int millis){
+    private boolean sleepFor(){
         try {
-            Thread.sleep(millis);
+            Thread.sleep(1000);
             return true;
         } catch (InterruptedException e) {
             if(SyrxOntime.debug) e.printStackTrace();
@@ -39,10 +34,10 @@ public class UpdateTask extends Thread {
         return false;
     }
 
-    public static final int CACHE_SAVE_TIME = 5;
-    public static int cacheSaveTime = CACHE_SAVE_TIME;
+    private static final int CACHE_SAVE_TIME = 5;
+    private static int cacheSaveTime = CACHE_SAVE_TIME;
 
-    private boolean tickCacheForSave(){     //Faz um contador decer até zero, quando dá 0 ele retorna TRUE e reseta o contador para 5!
+    private boolean tickCacheForSave(){
         if (cacheSaveTime <= 0){
             cacheSaveTime = CACHE_SAVE_TIME;
             return true;
@@ -53,9 +48,9 @@ public class UpdateTask extends Thread {
 
     @Override
     public void run() {
-        while(repeat) {
+        while(true) {
 
-            if (!sleepFor(1000)) return;
+            if (!sleepFor()) return;
 
             if (tickCacheForSave()) {
                 ConfigManager.saveCache();

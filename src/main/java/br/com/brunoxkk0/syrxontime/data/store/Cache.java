@@ -30,12 +30,8 @@ public class Cache {
         }
     }
 
-    public static boolean exist(OfflinePlayer player){
-        if(player != null && playerTimes.containsKey(player.getPlayer())){
-            return true;
-        }
-
-        return  false;
+    private static boolean exist(OfflinePlayer player){
+        return player != null && playerTimes.containsKey(player.getPlayer());
     }
 
     public static boolean exist(Player player){

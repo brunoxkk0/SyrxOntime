@@ -25,7 +25,7 @@ public class ConfigManager {
 
     }
 
-    public static void loadCache() {
+    private static void loadCache() {
 
         SyrxOntime.logger().info("Carregandos dados...");
 

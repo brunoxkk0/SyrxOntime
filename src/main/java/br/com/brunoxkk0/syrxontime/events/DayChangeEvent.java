@@ -18,7 +18,7 @@ public class DayChangeEvent extends Event{
     }
 
     public DayChangeEvent(){
-        currentDay = Clock.currentDay;
+        currentDay = Clock.getCurrentDay();
     }
 
 }

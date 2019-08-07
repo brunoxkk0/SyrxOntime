@@ -9,13 +9,14 @@ import br.com.brunoxkk0.syrxontime.threads.TopTask;
 import br.com.brunoxkk0.syrxontime.threads.UpdateTask;
 import br.com.brunoxkk0.syrxontime.utils.Clock;
 import org.bukkit.Bukkit;
+import org.bukkit.Statistic;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
 
 public class SyrxOntime extends JavaPlugin {
 
-    public static SyrxOntime instance;
+    private static SyrxOntime instance;
 
     public static SyrxOntime getInstance() {
         return instance;
@@ -24,6 +25,10 @@ public class SyrxOntime extends JavaPlugin {
     public static Logger logger(){return Logger.getLogger("SyrxOntime"); }
 
     public static boolean debug = false;
+
+    public static void debug(String s) {
+        logger().info("[DEBUG] " + s);
+    }
 
     @Override
     public void onEnable(){
