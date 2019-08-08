@@ -6,12 +6,9 @@ import br.com.brunoxkk0.syrxontime.data.Provider;
 import br.com.brunoxkk0.syrxontime.manager.ConfigManager;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.omg.CORBA.TIMEOUT;
-
-import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class RewardManager {
@@ -26,19 +23,6 @@ public class RewardManager {
 
     private static int lastId(){
         return id++;
-    }
-
-    private static List<Reward> getAll(TimeUnit unit){
-
-        List<Reward> list = new ArrayList<>();
-
-        for(Reward reward : rewards){
-            if(reward.timeUnit().equals(unit)){
-                list.add(reward);
-            }
-        }
-
-        return list;
     }
 
     public static boolean process(OfflinePlayer player, long time){
@@ -63,7 +47,14 @@ public class RewardManager {
         }
 
         if(reward.money() > 0){
-            //TODO: adicionar vault
+            if(SyrxOntime.getEconomy().hasAccount(player)){
+                SyrxOntime.getEconomy().depositPlayer(player, reward.money());
+
+                if(Bukkit.getPlayer(player.getUniqueId()) != null){
+                    Bukkit.getPlayer(player.getUniqueId()).sendMessage("Dinheiro adicionado.");
+                }
+
+            }
         }
 
         if(reward.xp() > 0){
@@ -78,35 +69,14 @@ public class RewardManager {
 
         SyrxOntime.logger().info("Registrando rewards...");
 
-        for(String keys : ConfigManager.getRewards().getKeys("rewards")){
-            IReward reward = new IReward() {
-                @Override
-                public TimeUnit timeUnit() {
-                    return TimeUnit.valueOf(ConfigManager.getRewards().getString("rewards."+keys+".timeUnit"));
+        for(String key : ConfigManager.getRewards().getKeys("rewards")){
+            try{
+                if(!verifyAndRegister(key)){
+                    SyrxOntime.logger().warning("Falha ao carregar a recompensa: " + key + " , verifique o arquivo reward.yml e tente novamente.");
                 }
-
-                @Override
-                public int time() {
-                    return ConfigManager.getRewards().getInt("rewards."+keys+".time");
-                }
-
-                @Override
-                public String[] commands() {
-                    return ConfigManager.getRewards().getStringList("rewards." + keys + ".commands").toArray(new String[0]);
-                }
-
-                @Override
-                public double money() {
-                    return ConfigManager.getRewards().getInt("rewards."+keys+".money", 0);
-                }
-
-                @Override
-                public double xp() {
-                    return ConfigManager.getRewards().getInt("rewards."+keys+".xp", 0);
-                }
-            };
-
-            register(reward);
+            }catch (Exception ignored){
+                SyrxOntime.logger().warning("Falha ao carregar a recompensa: " + key + " , verifique o arquivo reward.yml e tente novamente.");
+            }
         }
 
         SyrxOntime.logger().info("Registrado " + rewards.size() + " rewards.");
@@ -128,5 +98,60 @@ public class RewardManager {
             }
         }
         return (t - currentTime) / 1000;
+    }
+
+    private static boolean verifyAndRegister(String key){
+
+        String timeUnit = ConfigManager.getRewards().getString("rewards."+key+".timeUnit","");
+
+        if(!timeUnit.equals("")){
+            String[] units = {"SECONDS","MINUTES","HOURS"};
+
+            if(!Arrays.asList(units).contains(timeUnit)){
+                return false;
+            }
+
+        }
+
+        int time = ConfigManager.getRewards().getInt("rewards."+key+".time", -1);
+
+        if(time <= -1){
+            return false;
+        }
+
+        String[] cmds = ConfigManager.getRewards().getStringList("rewards." + key + ".commands").toArray(new String[0]);
+        double money = ConfigManager.getRewards().getInt("rewards."+key+".money", 0);
+        double xp = ConfigManager.getRewards().getInt("rewards."+key+".xp", 0);
+
+        IReward reward = new IReward(){
+            @Override
+            public TimeUnit timeUnit() {
+                return TimeUnit.valueOf(timeUnit);
+            }
+
+            @Override
+            public int time() {
+                return time;
+            }
+
+            @Override
+            public String[] commands() {
+                return cmds;
+            }
+
+            @Override
+            public double money() {
+                return money;
+            }
+
+            @Override
+            public double xp() {
+                return xp;
+            }
+        };
+
+        register(reward);
+
+        return true;
     }
 }

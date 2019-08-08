@@ -8,8 +8,10 @@ import br.com.brunoxkk0.syrxontime.rewards.RewardManager;
 import br.com.brunoxkk0.syrxontime.threads.TopTask;
 import br.com.brunoxkk0.syrxontime.threads.UpdateTask;
 import br.com.brunoxkk0.syrxontime.utils.Clock;
+import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.Statistic;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
@@ -17,6 +19,7 @@ import java.util.logging.Logger;
 public class SyrxOntime extends JavaPlugin {
 
     private static SyrxOntime instance;
+    private static Economy econ = null;
 
     public static SyrxOntime getInstance() {
         return instance;
@@ -47,6 +50,10 @@ public class SyrxOntime extends JavaPlugin {
             new PlaceholderAPI().register();
         }
 
+        if(setupEconomy()){
+            logger().info("Vault econtrando, adicionando suporte.");
+        }
+
     }
 
     @Override
@@ -56,5 +63,20 @@ public class SyrxOntime extends JavaPlugin {
         ConfigManager.saveRewardCache();
         Cache.wipe();
     }
+
+    private boolean setupEconomy() {
+        if (getServer().getPluginManager().getPlugin("Vault") == null) return false;
+
+        RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
+
+        if (rsp == null) return false;
+
+        return (econ = rsp.getProvider()) != null;
+    }
+
+    public static Economy getEconomy() {
+        return econ;
+    }
+
 
 }
