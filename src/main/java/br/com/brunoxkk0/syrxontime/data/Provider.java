@@ -1,6 +1,7 @@
 package br.com.brunoxkk0.syrxontime.data;
 
 import br.com.brunoxkk0.syrxontime.data.store.Cache;
+import br.com.brunoxkk0.syrxontime.rewards.RewardManager;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 
@@ -15,6 +16,17 @@ public class Provider {
 
     public static PlayerTime getPlayer(Player player){
         return Cache.get(player);
+    }
+
+    public static Long getPlayerNextRewardTime(Player p){
+
+        if(p != null){
+            PlayerTime time = Provider.getPlayer(p);
+
+            return (time != null) ? RewardManager.timeToNextReward(p, time.getTotalTimeToday()) : -1;
+        }
+
+        return -1L;
     }
 
     public static Long getPlayerToday(Player p){
@@ -96,5 +108,28 @@ public class Provider {
         }else{
             return TimeUnit.HOURS;
         }
+    }
+
+    public static Long convert(int time, TimeUnit unit){
+        long t = 0;
+
+        switch (unit){
+            case SECONDS:{
+                t = time*1000;
+                break;
+            }
+
+            case MINUTES:{
+                t = time*1000*60;
+                break;
+            }
+
+            case HOURS:{
+                t = time*1000*(60*60);
+                break;
+            }
+        }
+
+        return t;
     }
 }

@@ -77,14 +77,11 @@ public class TopTask extends Thread {
 
         ArrayList<Entry<UUID, Long>> vet = new ArrayList<>(map.entrySet());
 
-        vet.sort(new Comparator<Entry<UUID, Long>>() {
-            @Override
-            public int compare(Entry<UUID, Long> o1, Entry<UUID, Long> o2) {
-                long v1 = (o1.getValue() != null) ? o1.getValue() : 0;
-                long v2 = (o2.getValue() != null) ? o2.getValue() : 0;
+        vet.sort((o1, o2) -> {
+            long v1 = (o1.getValue() != null) ? o1.getValue() : 0;
+            long v2 = (o2.getValue() != null) ? o2.getValue() : 0;
 
-                return Long.compare(v1, v2);
-            }
+            return Long.compare(v1, v2);
         });
 
         Collections.reverse(vet);
@@ -100,14 +97,11 @@ public class TopTask extends Thread {
     private static void organize(){
         ArrayList<Entry<UUID, Long>> vet = new ArrayList<>(finalMap.entrySet());
 
-        vet.sort(new Comparator<Entry<UUID, Long>>() {
-            @Override
-            public int compare(Entry<UUID, Long> o1, Entry<UUID, Long> o2) {
-                long v1 = (o1.getValue() != null) ? o1.getValue() : 0;
-                long v2 = (o2.getValue() != null) ? o2.getValue() : 0;
+        vet.sort((o1, o2) -> {
+            long v1 = (o1.getValue() != null) ? o1.getValue() : 0;
+            long v2 = (o2.getValue() != null) ? o2.getValue() : 0;
 
-                return Long.compare(v1, v2);
-            }
+            return Long.compare(v1, v2);
         });
 
         Collections.reverse(vet);

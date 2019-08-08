@@ -37,7 +37,7 @@ public class SyrxOntime extends JavaPlugin {
         Clock.setup();
         ConfigManager.setup();
         EventListener.setup();
-        //RewardManager.setup();
+        RewardManager.setup();
 
         TopTask.initialize();
         UpdateTask.initialize();
