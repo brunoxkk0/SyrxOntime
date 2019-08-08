@@ -54,7 +54,6 @@ public class SyrxOntime extends JavaPlugin {
         UpdateTask.shutdown();
         ConfigManager.saveCache();
         ConfigManager.saveRewardCache();
-        ConfigManager.saveRewardCache();
         Cache.wipe();
     }
 

@@ -3,9 +3,12 @@ package br.com.brunoxkk0.syrxontime.rewards;
 
 import br.com.brunoxkk0.syrxontime.SyrxOntime;
 import br.com.brunoxkk0.syrxontime.data.Provider;
+import br.com.brunoxkk0.syrxontime.manager.ConfigManager;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.omg.CORBA.TIMEOUT;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -75,90 +78,41 @@ public class RewardManager {
 
         SyrxOntime.logger().info("Registrando rewards...");
 
-        register(new IReward() {
-            @Override
-            public TimeUnit timeUnit() {
-                return TimeUnit.SECONDS;
-            }
+        for(String keys : ConfigManager.getRewards().getKeys("rewards")){
+            IReward reward = new IReward() {
+                @Override
+                public TimeUnit timeUnit() {
+                    return TimeUnit.valueOf(ConfigManager.getRewards().getString("rewards."+keys+".timeUnit"));
+                }
 
-            @Override
-            public int time() {
-                return 30;
-            }
+                @Override
+                public int time() {
+                    return ConfigManager.getRewards().getInt("rewards."+keys+".time");
+                }
 
-            @Override
-            public String[] commands() {
-                return new String[]{"say Reward Entregue"};
-            }
+                @Override
+                public String[] commands() {
+                    return ConfigManager.getRewards().getStringList("rewards." + keys + ".commands").toArray(new String[0]);
+                }
 
-            @Override
-            public double money() {
-                return 0;
-            }
+                @Override
+                public double money() {
+                    return ConfigManager.getRewards().getInt("rewards."+keys+".money", 0);
+                }
 
-            @Override
-            public double xp() {
-                return 0;
-            }
+                @Override
+                public double xp() {
+                    return ConfigManager.getRewards().getInt("rewards."+keys+".xp", 0);
+                }
+            };
 
-        });
-        register(new IReward() {
-            @Override
-            public TimeUnit timeUnit() {
-                return TimeUnit.SECONDS;
-            }
-
-            @Override
-            public int time() {
-                return 40;
-            }
-
-            @Override
-            public String[] commands() {
-                return new String[]{"say Reward Entregue 2"};
-            }
-
-            @Override
-            public double money() {
-                return 0;
-            }
-
-            @Override
-            public double xp() {
-                return 0;
-            }
-        });
-        register(new IReward() {
-            @Override
-            public TimeUnit timeUnit() {
-                return TimeUnit.MINUTES;
-            }
-
-            @Override
-            public int time() {
-                return 26;
-            }
-
-            @Override
-            public String[] commands() {
-                return new String[]{"say Reward Entregue 3"};
-            }
-
-            @Override
-            public double money() {
-                return 0;
-            }
-
-            @Override
-            public double xp() {
-                return 0;
-            }
-        });
+            register(reward);
+        }
 
         SyrxOntime.logger().info("Registrado " + rewards.size() + " rewards.");
 
         for(Reward reward : rewards){
-            SyrxOntime.logger().info("REWARDID: " +reward.Reward_UUID());
+            SyrxOntime.logger().info("REWARDID: " +reward.Reward_UUID()+ " TIMEUNIT: " + reward.timeUnit()+" TIME: " + reward.time());
         }
     }
 

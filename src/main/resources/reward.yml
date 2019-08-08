@@ -1,0 +1,17 @@
+rewards:
+  '0':
+    timeUnit: SECONDS
+    time: 30
+    commands:
+      - 'say reward 0.1'
+      - 'say msg 0.2'
+    money: 0
+    xp: 0
+  '1':
+    timeUnit: SECONDS
+    time: 40
+    commands:
+      - 'say reward 0.5'
+      - 'say msg 0.6'
+    money: 0
+    xp: 0

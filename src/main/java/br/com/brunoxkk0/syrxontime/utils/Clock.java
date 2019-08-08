@@ -1,7 +1,9 @@
 package br.com.brunoxkk0.syrxontime.utils;
 
 import br.com.brunoxkk0.syrxontime.SyrxOntime;
+import br.com.brunoxkk0.syrxontime.events.DayChangeEvent;
 import br.com.brunoxkk0.syrxontime.manager.ConfigManager;
+import org.bukkit.Bukkit;
 
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -27,6 +29,7 @@ public class Clock {
 
     private static void dayChanged(){
         SyrxOntime.logger().info("Um outro dia começou...");
+        Bukkit.getPluginManager().callEvent(new DayChangeEvent());
         ConfigManager.wipeCache();
 
     }

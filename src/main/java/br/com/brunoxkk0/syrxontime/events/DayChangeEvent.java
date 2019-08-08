@@ -7,10 +7,15 @@ import org.bukkit.event.HandlerList;
 public class DayChangeEvent extends Event{
 
     private int currentDay;
+    private static final HandlerList handlers = new HandlerList();
 
     @Override
     public HandlerList getHandlers() {
-        return null;
+        return handlers;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     public int getCurrentDay() {

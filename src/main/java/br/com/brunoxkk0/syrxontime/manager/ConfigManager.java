@@ -109,7 +109,7 @@ public class ConfigManager {
     }
 
     public static ConfigAPI getConfig(){
-        return reward;
+        return config;
     }
 
 }
