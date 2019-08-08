@@ -53,6 +53,8 @@ public class SyrxOntime extends JavaPlugin {
     public void onDisable(){
         UpdateTask.shutdown();
         ConfigManager.saveCache();
+        ConfigManager.saveRewardCache();
+        ConfigManager.saveRewardCache();
         Cache.wipe();
     }
 

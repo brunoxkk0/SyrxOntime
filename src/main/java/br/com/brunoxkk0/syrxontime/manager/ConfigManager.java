@@ -46,7 +46,7 @@ public class ConfigManager {
 
             if(player != null){
                 Cache.add(new PlayerTime(player, cache.getLong("data." + key + ".time", 0)));
-                RewardManager.rewards_cache.put(player, cache.getInt("data" + key + ".reward", -1));
+                RewardManager.rewards_cache.put(player, cache.getInt("data." + key + ".reward", -1));
             }
         }
 
@@ -74,6 +74,18 @@ public class ConfigManager {
 
             playerTime.isSaved = true;
             Cache.update(playerTime);
+        }
+
+        cache.save();
+
+        if(SyrxOntime.debug) SyrxOntime.logger().info("Sucesso.");
+    }
+
+    public static void saveRewardCache(){
+        if(SyrxOntime.debug) SyrxOntime.logger().info("Salvando dados...");
+
+        for(OfflinePlayer player : RewardManager.rewards_cache.keySet()){
+            cache.setValue("data."+player.getUniqueId()+".reward", RewardManager.rewards_cache.getOrDefault(player, -1));
         }
 
         cache.save();
