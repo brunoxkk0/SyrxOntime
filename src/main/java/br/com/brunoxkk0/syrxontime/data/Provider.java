@@ -29,6 +29,19 @@ public class Provider {
         return -1L;
     }
 
+    public static String getPlayerNextRewardTimeBar(Player p){
+
+        if(p != null){
+            PlayerTime time = Provider.getPlayer(p);
+
+            if(time != null) return RewardManager.timeToNextRewardBar(p, time.getTotalTimeToday());
+        }
+
+        return "";
+    }
+
+
+
     public static Long getPlayerToday(Player p){
         PlayerTime playerTime = getPlayer(p);
         return (playerTime != null) ? playerTime.getTotalTimeToday() / 1000 : 0;
@@ -131,5 +144,26 @@ public class Provider {
         }
 
         return t;
+    }
+
+    public static String getBar(int min, int max, int cubes){
+
+        int a = (min * 100) / max;
+        int b = (cubes * a) / 100;
+        String bar = "";
+
+        if(max == min || min > max) {
+            b = cubes;
+        }
+
+        for(int i = 0; i < b; i++){
+            bar += "\u2b1b";
+        }
+        if(bar.length() < cubes){
+            for(int i = bar.length(); i <= cubes; i++){
+                bar += "\u2b1c";
+            }
+        }
+        return bar;
     }
 }

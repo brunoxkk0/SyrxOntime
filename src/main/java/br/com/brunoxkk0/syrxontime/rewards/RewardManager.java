@@ -100,6 +100,20 @@ public class RewardManager {
         return (t - currentTime) / 1000;
     }
 
+    public static String timeToNextRewardBar(OfflinePlayer player, long currentTime){
+        long t = 0;
+
+        if(rewards_cache.containsKey(player)){
+            for(Reward reward : rewards){
+                if(reward.Reward_UUID() > rewards_cache.getOrDefault(player, -1)){
+                    t = Provider.convert(reward.time(), reward.timeUnit());
+                    break;
+                }
+            }
+        }
+        return Provider.getBar((int)currentTime, (int) ((int)currentTime+t),20);
+    }
+
     private static boolean verifyAndRegister(String key){
 
         String timeUnit = ConfigManager.getRewards().getString("rewards."+key+".timeUnit","");

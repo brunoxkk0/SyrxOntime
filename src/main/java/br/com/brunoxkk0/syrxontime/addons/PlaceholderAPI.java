@@ -133,6 +133,10 @@ public class PlaceholderAPI extends PlaceholderExpansion {
             case "nextreward":{
                 return TimeAPI.formatSec(Provider.getPlayerNextRewardTime(player).intValue()) != "" ? TimeAPI.formatSec(Provider.getPlayerNextRewardTime(player).intValue()) : "Você ja pegou todas as recompensas...";
             }
+
+            case "nextrewardbar":{
+                return Provider.getPlayerNextRewardTimeBar(player);
+            }
         }
 
         return "";
