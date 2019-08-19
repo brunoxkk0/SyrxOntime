@@ -16,27 +16,8 @@ public class Ontime implements CommandExecutor {
             isConsol = true;
         }
 
-        if(parseArguments(2,args)){
-
-        }
-
-
 
 
         return false;
     }
-
-
-    public boolean parseArguments(int expected, String[] args){
-        return (args.length >= expected);
-    }
-
-    public boolean parseArguments(String[] args, String expected, int pos){
-        return ((parseArguments(pos + 1, args)) && (args[pos] == expected));
-    }
-
-    public boolean parseArguments(String[] args, Player expected, int pos){
-        return ((parseArguments(pos + 1, args)) && (args[pos] == expected.getName()));
-    }
-
 }

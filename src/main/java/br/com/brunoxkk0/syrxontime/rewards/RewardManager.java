@@ -26,18 +26,24 @@ public class RewardManager {
     }
 
     public static boolean process(OfflinePlayer player, long time){
+        int id;
+
         if(rewards_cache.containsKey(player)){
-            int id = rewards_cache.getOrDefault(player, -1);
-            for(Reward reward : rewards){
-                if(id < reward.Reward_UUID()){
-                    if(time > Provider.convert(reward.time(), reward.timeUnit())){
-                        rewards_cache.replace(player, reward.Reward_UUID());
-                        execute(player,reward);
-                        return true;
-                    }
+            id = rewards_cache.getOrDefault(player, -1);
+        }else{
+             id = -1;
+        }
+
+        for(Reward reward : rewards){
+            if(id < reward.Reward_UUID()){
+                if(time > Provider.convert(reward.time(), reward.timeUnit())){
+                    rewards_cache.put(player, reward.Reward_UUID());
+                    execute(player,reward);
+                    return true;
                 }
             }
         }
+
         return false;
     }
 
@@ -82,22 +88,52 @@ public class RewardManager {
         SyrxOntime.logger().info("Registrado " + rewards.size() + " rewards.");
 
         for(Reward reward : rewards){
-            SyrxOntime.logger().info("REWARDID: " +reward.Reward_UUID()+ " TIMEUNIT: " + reward.timeUnit()+" TIME: " + reward.time());
+            SyrxOntime.logger().info("{ RewardID: " +reward.Reward_UUID()+ " TimeUnit: " + reward.timeUnit()+" Time: " + reward.time() + " }");
         }
     }
 
     public static long timeToNextReward(OfflinePlayer player, long currentTime){
-        long t = 0;
+        long t = -1;
 
         if(rewards_cache.containsKey(player)){
             for(Reward reward : rewards){
-               if(reward.Reward_UUID() > rewards_cache.getOrDefault(player, -1)){
+               if(reward.Reward_UUID() > rewards_cache.get(player)){
                    t = Provider.convert(reward.time(), reward.timeUnit());
                    break;
                }
             }
+        }else{
+            for(Reward reward : rewards){
+                if(reward.Reward_UUID() > -1){
+                    t = Provider.convert(reward.time(), reward.timeUnit());
+                    break;
+                }
+            }
         }
-        return (t - currentTime) / 1000;
+
+        return Math.abs((currentTime - t) / 1000);
+    }
+
+    public static Long getNextRewardTime(OfflinePlayer player){
+        long t = -1;
+
+        if(rewards_cache.containsKey(player)){
+            for(Reward reward : rewards){
+                if(reward.Reward_UUID() > rewards_cache.get(player)){
+                    t = Provider.convert(reward.time(), reward.timeUnit());
+                    break;
+                }
+            }
+        }else{
+            for(Reward reward : rewards){
+                if(reward.Reward_UUID() > -1){
+                    t = Provider.convert(reward.time(), reward.timeUnit());
+                    break;
+                }
+            }
+        }
+
+        return Math.abs((t) / 1000);
     }
 
     private static boolean verifyAndRegister(String key){

@@ -132,4 +132,45 @@ public class Provider {
 
         return t;
     }
+
+    public static String getBar(int min, int max, int cubes){
+
+        System.out.println(min);
+        System.out.println(max);
+        System.out.println(cubes);
+
+        int a = 0;
+        int b = 0;
+
+        if(max != -1 || min != -1){
+            a = (min * 100) / max;
+            b = (cubes * a) / 100;
+        }else{
+            b = cubes;
+        }
+
+        StringBuilder bar = new StringBuilder();
+
+        if(max == min || min > max) {
+            b = cubes;
+        }
+
+        System.out.println(a);
+        System.out.println(b);
+        System.out.println(cubes);
+
+        for(int i = 0; i <= b; i++){
+            bar.append("\u2b1b");
+        }
+
+        if(bar.length() <= cubes){
+            for(int i = bar.length(); i <= cubes; i++){
+                bar.append("\u2b1c");
+            }
+        }
+
+        System.out.println(bar.toString());
+        return bar.toString();
+    }
+
 }
