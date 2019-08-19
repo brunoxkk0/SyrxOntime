@@ -17,7 +17,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.logging.Logger;
 
 public class SyrxOntime extends JavaPlugin {
-
+    //--
     private static SyrxOntime instance;
     private static Economy econ = null;
 
