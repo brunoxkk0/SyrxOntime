@@ -1,5 +1,6 @@
 package br.com.brunoxkk0.syrxontime.threads;
 
+import br.com.brunoxkk0.syrxontime.SyrxOntime;
 import org.bukkit.Bukkit;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
@@ -61,13 +62,23 @@ public class TopTask extends Thread {
 
         try {
             File file = new File(levelName() + "/stats");
-            if(file.isDirectory() && file.exists()){
+            if(file.exists() && file.isDirectory()){
                 for(File fl : Objects.requireNonNull(file.listFiles())){
                     JSONParser parser = new JSONParser();
                     Object obj = parser.parse(new FileReader(fl));
                     JSONObject jsonObject = (JSONObject) obj;
 
-                    map.put(UUID.fromString(fl.getName().replace(".json","")),((Long) jsonObject.get("stat.playOneMinute"))/(20));
+                    UUID uuid = UUID.fromString(fl.getName().replace(".json",""));
+
+                    if(uuid != null){
+                        try{
+                            Long time = (Long) jsonObject.get("stat.playOneMinute");
+                            map.put(uuid ,time/20);
+                        }catch (Exception ignored){
+                          if(SyrxOntime.debug)SyrxOntime.debug("Erro ao carregar a data: " + uuid);
+                        }
+                    }
+
                 }
             }
 

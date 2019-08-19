@@ -29,7 +29,7 @@ public class ConfigManager {
 
         SyrxOntime.logger().info("Carregandos dados...");
 
-        if(cache.getInt("day", 0) < Clock.getCurrentDay()) {
+        if(cache.getInt("day", 0) != Clock.getCurrentDay()) {
             SyrxOntime.logger().info("Dados antigos encontrados... limpando!");
 
             cache.setValue("day", Clock.getCurrentDay());
