@@ -101,6 +101,7 @@ public class Provider {
     }
 
     public static TimeUnit parse(long time){
+
         if(time < 60000){
             return TimeUnit.SECONDS;
         }else if(time < 3600000){
@@ -135,10 +136,6 @@ public class Provider {
 
     public static String getBar(int min, int max, int cubes){
 
-        System.out.println(min);
-        System.out.println(max);
-        System.out.println(cubes);
-
         int a = 0;
         int b = 0;
 
@@ -155,10 +152,6 @@ public class Provider {
             b = cubes;
         }
 
-        System.out.println(a);
-        System.out.println(b);
-        System.out.println(cubes);
-
         for(int i = 0; i <= b; i++){
             bar.append("\u2b1b");
         }
@@ -169,7 +162,6 @@ public class Provider {
             }
         }
 
-        System.out.println(bar.toString());
         return bar.toString();
     }
 

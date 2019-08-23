@@ -1,15 +1,13 @@
 package br.com.brunoxkk0.syrxontime.addons;
 
-import br.com.brunoxkk0.syrxontime.data.PlayerTime;
+
 import br.com.brunoxkk0.syrxontime.data.Provider;
-import br.com.brunoxkk0.syrxontime.data.TimeObj;
 import br.com.brunoxkk0.syrxontime.rewards.RewardManager;
 import br.com.brunoxkk0.syrxontime.threads.TopTask;
 import br.com.brunoxkk0.syrxontime.utils.TimeAPI;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.PortalType;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;

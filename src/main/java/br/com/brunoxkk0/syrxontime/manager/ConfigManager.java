@@ -97,6 +97,9 @@ public class ConfigManager {
 
         SyrxOntime.logger().info("Apagando dados...");
 
+        RewardManager.rewards_cache.clear();
+        Cache.wipe();
+
         cache.setValue("day", Clock.getCurrentDay());
         cache.setValue("data",null);
         cache.save();

@@ -10,14 +10,13 @@ import br.com.brunoxkk0.syrxontime.threads.UpdateTask;
 import br.com.brunoxkk0.syrxontime.utils.Clock;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
-import org.bukkit.Statistic;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Logger;
 
 public class SyrxOntime extends JavaPlugin {
-    //--
+
     private static SyrxOntime instance;
     private static Economy econ = null;
 
