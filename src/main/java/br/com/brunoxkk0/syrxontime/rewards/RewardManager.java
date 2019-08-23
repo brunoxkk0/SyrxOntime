@@ -2,10 +2,13 @@ package br.com.brunoxkk0.syrxontime.rewards;
 
 
 import br.com.brunoxkk0.syrxontime.SyrxOntime;
+import br.com.brunoxkk0.syrxontime.commands.Lang;
 import br.com.brunoxkk0.syrxontime.data.Provider;
 import br.com.brunoxkk0.syrxontime.manager.ConfigManager;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+
+import java.io.BufferedOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -48,6 +51,12 @@ public class RewardManager {
     }
 
     private static void execute(OfflinePlayer player, Reward reward){
+
+        if(Bukkit.getPlayer(player.getUniqueId()) != null){
+            Bukkit.getPlayer(player.getUniqueId()).sendMessage(Lang.reward_win);
+        }
+
+
         for(String cmd : reward.commands()){
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replace("&p", player.getName()));
         }
@@ -57,7 +66,7 @@ public class RewardManager {
                 SyrxOntime.getEconomy().depositPlayer(player, reward.money());
 
                 if(Bukkit.getPlayer(player.getUniqueId()) != null){
-                    Bukkit.getPlayer(player.getUniqueId()).sendMessage("Dinheiro adicionado.");
+                    Bukkit.getPlayer(player.getUniqueId()).sendMessage(Lang.vault_reward_money.replace("%money","" +  reward.money()).replace("§","\u00a7"));
                 }
 
             }
@@ -66,6 +75,7 @@ public class RewardManager {
         if(reward.xp() > 0){
             if(Bukkit.getPlayer(player.getUniqueId()) != null){
                 Bukkit.getPlayer(player.getUniqueId()).giveExp(((Double)reward.xp()).intValue());
+                Bukkit.getPlayer(player.getUniqueId()).sendMessage(Lang.reward_xp.replace("%xp","" +  reward.xp()).replace("§","\u00a7"));
             }
         }
 
