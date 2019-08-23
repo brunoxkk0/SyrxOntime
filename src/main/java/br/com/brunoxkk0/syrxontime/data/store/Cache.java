@@ -27,6 +27,10 @@ public class Cache {
                 playerTime.update();
                 update(playerTime);
             }
+        }else{
+            PlayerTime playerTime = new PlayerTime(Bukkit.getOfflinePlayer(player.getUniqueId()));
+            playerTime.update();
+            update(playerTime);
         }
     }
 

@@ -36,31 +36,45 @@ public class SyrxOntime extends JavaPlugin {
     public void onEnable(){
         instance = this;
 
-        Clock.setup();
-        ConfigManager.setup();
-        EventListener.setup();
-        RewardManager.setup();
+        /*
+        Registrando os Modulos do sistema.
+         */
+        Clock.setup(); //Sistema de controle do tempo.
+        ConfigManager.setup(); //Sistema de controle das configurações.
+        EventListener.setup(); //Sistema de Eventos.
+        RewardManager.setup(); //Sistema de Recompensas.
 
-        TopTask.initialize();
-        UpdateTask.initialize();
 
-        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){
-            logger().info("PlaceholderAPI encontrado, adicionando suporte.");
-            new PlaceholderAPI().register();
-        }
+        /*
+        Inicializando os threads.
+         */
+        TopTask.initialize(); //Task de ontime top.
+        UpdateTask.initialize(); //Task para atualizar os tempos.
 
-        if(setupEconomy()){
-            logger().info("Vault econtrando, adicionando suporte.");
-        }
+        /*
+        Iniciando a parte de compatibilidade.
+         */
+        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null){    // Hook com PlaceHolder API.
+            logger().info("PlaceholderAPI encontrado, adicionando suporte.");  //
+            new PlaceholderAPI().register();                                         //
+        }                                                                            //
+
+        if(setupEconomy()){                                                 //
+            logger().info("Vault econtrando, adicionando suporte.");  // Hook com o vault.
+        }                                                                   //
 
     }
 
     @Override
     public void onDisable(){
-        UpdateTask.shutdown();
-        ConfigManager.saveCache();
-        ConfigManager.saveRewardCache();
-        Cache.wipe();
+
+        UpdateTask.shutdown(); //Desliga o sistema de atualização do tempo.
+
+        ConfigManager.saveCache(); //Salva os dados de jogadores em "Cache".
+        ConfigManager.saveRewardCache(); //Salva os dados referente as recompensas em "Cache".
+
+        Cache.wipe(); //Limpa o "Cache".
+
     }
 
     private boolean setupEconomy() {

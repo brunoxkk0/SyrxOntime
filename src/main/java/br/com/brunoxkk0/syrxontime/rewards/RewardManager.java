@@ -31,7 +31,7 @@ public class RewardManager {
         if(rewards_cache.containsKey(player)){
             id = rewards_cache.getOrDefault(player, -1);
         }else{
-             id = -1;
+            id = -1;
         }
 
         for(Reward reward : rewards){

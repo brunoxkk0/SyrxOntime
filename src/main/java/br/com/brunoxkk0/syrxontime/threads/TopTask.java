@@ -31,8 +31,9 @@ public class TopTask extends Thread {
         if(finalMap.isEmpty() || System.currentTimeMillis() - lastTime > 600000){
             for(Player player : Bukkit.getServer().getOnlinePlayers()){
                 finalMap.replace(player.getUniqueId(), (long) player.getStatistic(Statistic.PLAY_ONE_TICK) / (20));
-                new Thread(TopTask::organize).start();
             }
+
+            new Thread(TopTask::organize).start();
         }
 
         return finalMap;
@@ -102,7 +103,7 @@ public class TopTask extends Thread {
         }
 
         lastTime = System.currentTimeMillis();
-        System.out.println("Consumed Time: " + (lastTime-times)+" MS. Loaded and Organized: " + finalMap.size() + " values.");
+        SyrxOntime.logger().info("Consumed Time: " + (lastTime-times)+" MS. Loaded and Organized: " + finalMap.size() + " values.");
     }
 
     private static void organize(){
