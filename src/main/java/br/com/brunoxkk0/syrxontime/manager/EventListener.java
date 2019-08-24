@@ -20,11 +20,15 @@ public class EventListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e){
         if(!Cache.exist(e.getPlayer())){
+            System.out.println("ONTIME - Create");
             Cache.create(e.getPlayer());
+            return;
         }
+
+        System.out.println("ONTIME - Not Create");
     }
 
-    @EventHandler
+    //@EventHandler
     public void onChat(AsyncPlayerChatEvent e){
         e.setMessage(e.getMessage().replace("&","\u00a7"));
     }

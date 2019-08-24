@@ -1,5 +1,7 @@
 package br.com.brunoxkk0.syrxontime.commands;
 
+import br.com.brunoxkk0.syrxontime.SyrxOntime;
+import br.com.brunoxkk0.syrxontime.utils.ConfigAPI;
 import org.bukkit.entity.Player;
 
 
@@ -10,17 +12,20 @@ import java.util.List;
 public class Lang {
 
     private HashMap<String,String> msg = new HashMap<>();
+    private ConfigAPI lang;
 
     public Lang(){
 
+        lang = new ConfigAPI(SyrxOntime.getInstance(), "lang.yml");
+
         //COMMANDS
-        msg.put("missing_perms","&cVocê não pode executar esse comando!");
-        msg.put("player_null","&cJogador não encontrado.");
+        msg.put("missing_perms", lang.getString("missing_perms","&cVocê não pode executar esse comando!"));
+        msg.put("player_null", lang.getString("player_null","&cJogador não encontrado."));
 
         //REWARDS
-        msg.put("reward_win","&8[&6&lOntime&r&8]&r &fVocê acaba atingir&e%time&f de jogo hoje.");
-        msg.put("reward_vault_money","&8[&6&lOntime&r&8]&r &fVocê acaba de receber &e%money&f.");
-        msg.put("reward_xp","&8[&6&lOntime&r&8]&r &fVocê acaba de receber &e%xp&f de experiência.");
+        msg.put("reward_win", lang.getString("reward_win","&8[&6&lOntime&r&8]&r &fVocê acaba atingir&e%time&f de jogo hoje."));
+        msg.put("reward_vault_money", lang.getString("reward_vault_money","&8[&6&lOntime&r&8]&r &fVocê acaba de receber &e%money&f."));
+        msg.put("reward_xp", lang.getString("reward_xp","&8[&6&lOntime&r&8]&r &fVocê acaba de receber &e%xp&f de experiência."));
     }
 
 

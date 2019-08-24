@@ -1,0 +1,6 @@
+missing_perms: "&cVocê não pode executar esse comando!"
+player_null: "&cJogador não encontrado."
+
+reward_win: "&8[&6&lOntime&r&8]&r &fVocê acaba atingir&e%time&f de jogo hoje."
+reward_vault_money: "&8[&6&lOntime&r&8]&r &fVocê acaba de receber &e%money&f."
+reward_xp: "&8[&6&lOntime&r&8]&r &fVocê acaba de receber &e%xp&f de experiência."

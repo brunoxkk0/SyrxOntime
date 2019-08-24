@@ -35,7 +35,8 @@ public class Cache {
     }
 
     private static boolean exist(OfflinePlayer player){
-        return player != null && playerTimes.containsKey(player.getPlayer());
+        //return player != null && playerTimes.containsKey(player);
+        return playerTimes.containsKey(player);
     }
 
     public static boolean exist(Player player){
@@ -50,11 +51,13 @@ public class Cache {
         return playerTimes.size();
     }
 
-    public static Collection<PlayerTime> datas(){ return playerTimes.values();}
+    public static Collection<PlayerTime> datas(){
+        return playerTimes.values();
+    }
 
 
     public static PlayerTime get(Player player){
-        if(exist(Bukkit.getOfflinePlayer(player.getUniqueId()))){
+        if(exist(player)){
             return playerTimes.get(Bukkit.getOfflinePlayer(player.getUniqueId()));
         }
         return null;

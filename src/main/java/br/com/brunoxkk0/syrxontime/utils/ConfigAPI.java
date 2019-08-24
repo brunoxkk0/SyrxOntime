@@ -44,7 +44,7 @@ public class ConfigAPI {
 		try{
 			File file = new File(targetFolder, assetName);
 			if (!file.exists()){
-				InputStream inputStream = plugin.getResource(assetName);;
+				InputStream inputStream = plugin.getResource(assetName);
 				try {
 					Files.copy(inputStream, file.getAbsoluteFile().toPath(), new CopyOption[]{StandardCopyOption.REPLACE_EXISTING});
 				} catch (IOException e) {
