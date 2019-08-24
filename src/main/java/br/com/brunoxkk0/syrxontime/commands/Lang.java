@@ -101,12 +101,12 @@ public class Lang {
     private String replace(String string, String[][] replace){
         String s = string;
 
-        for(int i = 0; i < replace.length;i++){
+        for (String[] strings : replace) {
 
-            List<String> list = Arrays.asList(replace[i]);
+            List<String> list = Arrays.asList(strings);
 
-            if(list.size() == 2){
-                s = s.replace(list.get(0),list.get(1));
+            if (list.size() == 2) {
+                s = s.replace(list.get(0), list.get(1));
             }
 
         }
