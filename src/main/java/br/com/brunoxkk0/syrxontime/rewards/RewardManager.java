@@ -5,8 +5,10 @@ import br.com.brunoxkk0.syrxontime.SyrxOntime;
 import br.com.brunoxkk0.syrxontime.commands.Lang;
 import br.com.brunoxkk0.syrxontime.data.Provider;
 import br.com.brunoxkk0.syrxontime.manager.ConfigManager;
+import br.com.brunoxkk0.syrxontime.utils.TimeAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.entity.Player;
 
 import java.io.BufferedOutputStream;
 import java.util.ArrayList;
@@ -52,30 +54,30 @@ public class RewardManager {
 
     private static void execute(OfflinePlayer player, Reward reward){
 
-        if(Bukkit.getPlayer(player.getUniqueId()) != null){
-            Bukkit.getPlayer(player.getUniqueId()).sendMessage(Lang.reward_win);
-        }
-
+        Player p = Bukkit.getPlayer(player.getUniqueId());
+        String ft = TimeAPI.formatSec(Provider.convert(reward.time(),reward.timeUnit()).intValue()/1000);
+        SyrxOntime.getLang().process("reward_win",p,new String[][]{new String[]{"%time",ft},new String[]{"%money",reward.money()+""},new String[]{"%xp",reward.xp() + ""}});
 
         for(String cmd : reward.commands()){
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd.replace("&p", player.getName()));
         }
 
         if(reward.money() > 0){
-            if(SyrxOntime.getEconomy().hasAccount(player)){
-                SyrxOntime.getEconomy().depositPlayer(player, reward.money());
+            if(SyrxOntime.getEconomy() != null){
 
-                if(Bukkit.getPlayer(player.getUniqueId()) != null){
-                    Bukkit.getPlayer(player.getUniqueId()).sendMessage(Lang.vault_reward_money.replace("%money","" +  reward.money()).replace("§","\u00a7"));
+                if(!SyrxOntime.getEconomy().hasAccount(player)){
+                    return;
                 }
 
+                SyrxOntime.getEconomy().depositPlayer(player, reward.money());
+                SyrxOntime.getLang().process("reward_vault_money", p, new String[][]{new String[]{"%money",reward.money()+""}});
             }
         }
 
         if(reward.xp() > 0){
             if(Bukkit.getPlayer(player.getUniqueId()) != null){
                 Bukkit.getPlayer(player.getUniqueId()).giveExp(((Double)reward.xp()).intValue());
-                Bukkit.getPlayer(player.getUniqueId()).sendMessage(Lang.reward_xp.replace("%xp","" +  reward.xp()).replace("§","\u00a7"));
+                SyrxOntime.getLang().process("reward_xp", p, new String[][]{new String[]{"%xp",reward.xp() + ""}});
             }
         }
 

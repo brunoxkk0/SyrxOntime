@@ -1,6 +1,7 @@
 package br.com.brunoxkk0.syrxontime;
 
 import br.com.brunoxkk0.syrxontime.addons.PlaceholderAPI;
+import br.com.brunoxkk0.syrxontime.commands.Lang;
 import br.com.brunoxkk0.syrxontime.data.store.Cache;
 import br.com.brunoxkk0.syrxontime.manager.ConfigManager;
 import br.com.brunoxkk0.syrxontime.manager.EventListener;
@@ -19,6 +20,7 @@ public class SyrxOntime extends JavaPlugin {
 
     private static SyrxOntime instance;
     private static Economy econ = null;
+    private static Lang lang;
 
     public static SyrxOntime getInstance() {
         return instance;
@@ -32,9 +34,14 @@ public class SyrxOntime extends JavaPlugin {
         logger().info("[DEBUG] " + s);
     }
 
+    public static Lang getLang() {
+        return lang;
+    }
+
     @Override
     public void onEnable(){
         instance = this;
+        lang = new Lang();
 
         /*
         Registrando os Modulos do sistema.
