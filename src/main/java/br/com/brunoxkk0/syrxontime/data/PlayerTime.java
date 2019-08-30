@@ -24,7 +24,7 @@ public class PlayerTime {
     }
 
     public PlayerTime(Player player){
-        this(Bukkit.getOfflinePlayer(player.getUniqueId()));
+        this(Provider.getOfflinePlayer(player));
     }
 
     public PlayerTime(OfflinePlayer player, Long totalTimeToday){

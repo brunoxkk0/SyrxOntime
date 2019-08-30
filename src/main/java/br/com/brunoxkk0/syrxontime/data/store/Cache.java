@@ -1,8 +1,10 @@
 package br.com.brunoxkk0.syrxontime.data.store;
 
 import br.com.brunoxkk0.syrxontime.data.PlayerTime;
+import br.com.brunoxkk0.syrxontime.data.Provider;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.craftbukkit.v1_7_R4.CraftOfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.Collection;
@@ -28,7 +30,7 @@ public class Cache {
                 update(playerTime);
             }
         }else{
-            PlayerTime playerTime = new PlayerTime(Bukkit.getOfflinePlayer(player.getUniqueId()));
+            PlayerTime playerTime = new PlayerTime(Provider.getOfflinePlayer(player));
             playerTime.update();
             update(playerTime);
         }
@@ -40,7 +42,11 @@ public class Cache {
     }
 
     public static boolean exist(Player player){
-        return exist(Bukkit.getOfflinePlayer(player.getUniqueId()));
+        return exist(Provider.getOfflinePlayer(player));
+    }
+
+    public static boolean exist(CraftOfflinePlayer player){
+        return playerTimes.containsKey(player);
     }
 
     public static void create(Player player){
@@ -58,12 +64,16 @@ public class Cache {
 
     public static PlayerTime get(Player player){
         if(exist(player)){
-            return playerTimes.get(Bukkit.getOfflinePlayer(player.getUniqueId()));
+            return playerTimes.get(Provider.getOfflinePlayer(player));
         }
         return null;
     }
 
     public static void wipe(){
         playerTimes.clear();
+    }
+
+    public static Collection<OfflinePlayer> keys(){
+        return playerTimes.keySet();
     }
 }

@@ -2,6 +2,7 @@ package br.com.brunoxkk0.syrxontime.manager;
 
 
 import br.com.brunoxkk0.syrxontime.SyrxOntime;
+import br.com.brunoxkk0.syrxontime.data.Provider;
 import br.com.brunoxkk0.syrxontime.data.store.Cache;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
@@ -19,17 +20,11 @@ public class EventListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e){
-        if(!Cache.exist(e.getPlayer())){
-            System.out.println("ONTIME - Create");
-            Cache.create(e.getPlayer());
-            return;
+        if(SyrxOntime.isIsCauldron()){
+            if(!Cache.exist(Provider.getOfflinePlayer(e.getPlayer()))){
+                Cache.create(e.getPlayer());
+                return;
+            }
         }
-
-        System.out.println("ONTIME - Not Create");
-    }
-
-    //@EventHandler
-    public void onChat(AsyncPlayerChatEvent e){
-        e.setMessage(e.getMessage().replace("&","\u00a7"));
     }
 }

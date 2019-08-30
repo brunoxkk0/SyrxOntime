@@ -21,6 +21,7 @@ public class SyrxOntime extends JavaPlugin {
     private static SyrxOntime instance;
     private static Economy econ = null;
     private static Lang lang;
+    private static boolean isCauldron = false;
 
     public static SyrxOntime getInstance() {
         return instance;
@@ -38,9 +39,19 @@ public class SyrxOntime extends JavaPlugin {
         return lang;
     }
 
+    public static boolean isIsCauldron() {
+        return isCauldron;
+    }
+
     @Override
     public void onEnable(){
         instance = this;
+
+        try {
+            Class.forName("thermos.Thermos");
+            isCauldron = true;
+        } catch (Exception e) {}
+
         lang = new Lang();
 
         /*

@@ -137,7 +137,7 @@ public class PlaceholderAPI extends PlaceholderExpansion {
             }
 
             case "nextreward_bar":{
-                return Provider.getBar(Provider.getPlayerToday(player).intValue(), RewardManager.getNextRewardTime(Bukkit.getOfflinePlayer(player.getUniqueId())).intValue(), 20);
+                return Provider.getBar(Provider.getPlayerToday(player).intValue(), RewardManager.getNextRewardTime(Provider.getOfflinePlayer(player)).intValue(), 20);
             }
 
         }

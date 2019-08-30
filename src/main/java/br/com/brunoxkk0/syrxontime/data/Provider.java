@@ -1,8 +1,12 @@
 package br.com.brunoxkk0.syrxontime.data;
 
+import br.com.brunoxkk0.syrxontime.SyrxOntime;
 import br.com.brunoxkk0.syrxontime.data.store.Cache;
 import br.com.brunoxkk0.syrxontime.rewards.RewardManager;
+import com.mojang.authlib.GameProfile;
 import org.bukkit.Statistic;
+import org.bukkit.craftbukkit.v1_7_R4.CraftOfflinePlayer;
+import org.bukkit.craftbukkit.v1_7_R4.CraftServer;
 import org.bukkit.entity.Player;
 
 import java.text.DateFormat;
@@ -10,6 +14,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class Provider {
@@ -23,10 +28,15 @@ public class Provider {
         if(p != null){
             PlayerTime time = Provider.getPlayer(p);
 
-            return (time != null) ? RewardManager.timeToNextReward(p, time.getTotalTimeToday()) : -1;
+            return ((time != null) ? RewardManager.timeToNextReward(p, time.getTotalTimeToday()) : -1);
         }
 
         return -1L;
+    }
+
+    public static CraftOfflinePlayer getOfflinePlayer(Player player){
+        CraftServer craftServer = (CraftServer) SyrxOntime.getInstance().getServer();
+        return (CraftOfflinePlayer) craftServer.getOfflinePlayer(new GameProfile(player.getUniqueId(),player.getName()));
     }
 
     public static Long getPlayerToday(Player p){
