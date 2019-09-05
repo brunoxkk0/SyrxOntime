@@ -79,4 +79,8 @@ public class PlayerTime {
 
         return this;
     }
+
+    public void resetLastUpdate(){
+        lastSession = 0;
+    }
 }

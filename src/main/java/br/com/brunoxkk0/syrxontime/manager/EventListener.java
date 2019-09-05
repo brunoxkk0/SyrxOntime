@@ -2,6 +2,7 @@ package br.com.brunoxkk0.syrxontime.manager;
 
 
 import br.com.brunoxkk0.syrxontime.SyrxOntime;
+import br.com.brunoxkk0.syrxontime.data.PlayerTime;
 import br.com.brunoxkk0.syrxontime.data.Provider;
 import br.com.brunoxkk0.syrxontime.data.store.Cache;
 import org.bukkit.Bukkit;
@@ -24,6 +25,8 @@ public class EventListener implements Listener {
             if(!Cache.exist(Provider.getOfflinePlayer(e.getPlayer()))){
                 Cache.create(e.getPlayer());
                 return;
+            }else{
+                Cache.resetLastUpdate(e.getPlayer());
             }
         }
     }

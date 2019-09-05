@@ -36,6 +36,20 @@ public class Cache {
         }
     }
 
+    public static void resetLastUpdate(Player player){
+        if(get(player) != null){
+            PlayerTime playerTime = get(player);
+            if(playerTime != null){
+                playerTime.resetLastUpdate();
+                update(playerTime);
+            }
+        }else{
+            PlayerTime playerTime = new PlayerTime(Provider.getOfflinePlayer(player));
+            playerTime.resetLastUpdate();
+            update(playerTime);
+        }
+    }
+
     private static boolean exist(OfflinePlayer player){
         //return player != null && playerTimes.containsKey(player);
         return playerTimes.containsKey(player);
