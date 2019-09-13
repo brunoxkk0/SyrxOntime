@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 public class EventListener implements Listener {
 
@@ -24,8 +25,14 @@ public class EventListener implements Listener {
         if(SyrxOntime.isIsCauldron()){
             if(!Cache.exist(Provider.getOfflinePlayer(e.getPlayer()))){
                 Cache.create(e.getPlayer());
-                return;
-            }else{
+            }
+        }
+    }
+
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent e){
+        if(SyrxOntime.isIsCauldron()){
+            if(Cache.exist(Provider.getOfflinePlayer(e.getPlayer()))){
                 Cache.resetLastUpdate(e.getPlayer());
             }
         }

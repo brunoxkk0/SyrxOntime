@@ -2,7 +2,6 @@ package br.com.brunoxkk0.syrxontime.data.store;
 
 import br.com.brunoxkk0.syrxontime.data.PlayerTime;
 import br.com.brunoxkk0.syrxontime.data.Provider;
-import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.craftbukkit.v1_7_R4.CraftOfflinePlayer;
 import org.bukkit.entity.Player;

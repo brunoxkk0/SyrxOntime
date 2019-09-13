@@ -49,6 +49,7 @@ public class PlayerTime {
     }
 
     public PlayerTime update(){
+
         if(lastSession == 0){
             if((player) != null){
                 lastSession = (player).getLastPlayed();
@@ -81,6 +82,6 @@ public class PlayerTime {
     }
 
     public void resetLastUpdate(){
-        lastSession = 0;
+        lastUpdate = 0;
     }
 }
