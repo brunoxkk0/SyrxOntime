@@ -24,7 +24,7 @@ public class Lang {
 
         //REWARDS
         msg.put("reward_win", lang.getString("reward_win","&8[&6&lOntime&r&8]&r &fVocê acaba atingir&e%time&f de jogo hoje."));
-        msg.put("reward_vault_money", lang.getString("reward_vault_money","&8[&6&lOntime&r&8]&r &fVocê acaba de receber &e%money&f."));
+        msg.put("reward_vault_money", lang.getString("reward_vault_money","&8[&6&lOntime&r&8]&r &fVocê acaba de receber &eR$%money&f."));
         msg.put("reward_xp", lang.getString("reward_xp","&8[&6&lOntime&r&8]&r &fVocê acaba de receber &e%xp&f de experiência."));
     }
 

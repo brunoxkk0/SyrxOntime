@@ -11,7 +11,7 @@ public class PlayerTime {
 
     public OfflinePlayer player;
     private long lastSession = 0;
-    private long totalTimeToday;
+    private long totalTimeToday = 0;
     private long lastUpdate;
     private int today;
     public boolean isSaved = false;
@@ -19,7 +19,7 @@ public class PlayerTime {
     public PlayerTime(OfflinePlayer player){
         this.player = player;
         this.today = Clock.getCurrentDay();
-        this.lastUpdate = System.currentTimeMillis();
+        this.lastUpdate = 0;
         this.totalTimeToday = 0;
     }
 
@@ -49,11 +49,12 @@ public class PlayerTime {
     }
 
     public PlayerTime update(){
-
-        if(lastSession == 0){
-            if((player) != null){
-                lastSession = (player).getLastPlayed();
+        if(lastSession == 0 || lastSession != player.getLastPlayed()){
+            if(player != null){
+                lastSession = player.getLastPlayed();
+                resetLastUpdate();
             }
+            resetLastUpdate();
         }
 
         if(SyrxOntime.debug){
@@ -68,14 +69,15 @@ public class PlayerTime {
 
         totalTimeToday += (currentTime - lastUpdate);
 
-        if(today < Clock.getCurrentDay()){
+        if(today != Clock.getCurrentDay()){
 
             today = Clock.getCurrentDay();
             totalTimeToday = 0;
+            lastUpdate = 0;
 
         }
 
-        lastUpdate = currentTime;
+        lastUpdate = System.currentTimeMillis();
         isSaved = false;
 
         return this;

@@ -149,6 +149,11 @@ public class Provider {
         int a = 0;
         int b = 0;
 
+        if(max == 0 || min == 0){
+            min = 20;
+            max = 20;
+        }
+
         if(max != -1 || min != -1){
             a = (min * 100) / max;
             b = (cubes * a) / 100;
