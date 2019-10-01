@@ -19,7 +19,7 @@ public class PlayerTime {
     public PlayerTime(OfflinePlayer player){
         this.player = player;
         this.today = Clock.getCurrentDay();
-        this.lastUpdate = 0;
+        this.lastUpdate = System.currentTimeMillis();
         this.totalTimeToday = 0;
     }
 
@@ -73,7 +73,7 @@ public class PlayerTime {
 
             today = Clock.getCurrentDay();
             totalTimeToday = 0;
-            lastUpdate = 0;
+            lastUpdate = System.currentTimeMillis();
 
         }
 
@@ -84,6 +84,6 @@ public class PlayerTime {
     }
 
     public void resetLastUpdate(){
-        lastUpdate = 0;
+        lastUpdate = System.currentTimeMillis();
     }
 }
