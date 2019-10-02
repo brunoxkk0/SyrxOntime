@@ -25,11 +25,13 @@ public class EventListener implements Listener {
         if(SyrxOntime.isIsCauldron()){
             if(!Cache.exist(Provider.getOfflinePlayer(e.getPlayer()))){
                 Cache.create(e.getPlayer());
+            }else{
+                Cache.resetLastUpdate(e.getPlayer());
             }
         }
     }
 
-    @EventHandler
+    //@EventHandler
     public void onPlayerQuit(PlayerQuitEvent e){
         if(SyrxOntime.isIsCauldron()){
             if(Cache.exist(Provider.getOfflinePlayer(e.getPlayer()))){
